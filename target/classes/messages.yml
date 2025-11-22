@@ -1,0 +1,36 @@
+# ChristmasGift Messages Configuration
+# Use & for color codes
+
+messages:
+  # General messages
+  prefix: "&c&l[ChristmasGift]&r "
+  no-permission: "&cYou don't have permission to do that!"
+  player-only: "&cThis command can only be used by players!"
+  unknown-command: "&cUnknown command! Use /christmasgift for help."
+  config-reloaded: "&aConfiguration reloaded successfully!"
+  
+  # Gift block messages
+  gift-received: "&aYou received a Christmas Gift block! Place it somewhere for players to find."
+  gift-placed: "&aChristmas Gift block placed successfully!"
+  gift-removed: "&aChristmas Gift block removed successfully!"
+  all-gifts-removed: "&aRemoved {count} Christmas Gift blocks!"
+  gift-not-found: "&cNo gift block found at those coordinates!"
+  cannot-break: "&cYou cannot break a Christmas Gift block!"
+  
+  # Claim messages
+  gift-claimed: "&a&lCongratulations! &aYou found a Christmas Gift! Total found: &e{found}"
+  already-claimed: "&cThis gift has already been claimed by someone else!"
+  
+  # Stats messages
+  stats-header: "&6&l=== Your Christmas Gift Stats ==="
+  stats-found: "&eGifts found: &a{found}"
+  stats-rank: "&eYour rank: &a#{rank}"
+  
+  # Leaderboard messages
+  leaderboard-header: "&6&l=== Christmas Gift Leaderboard ==="
+  leaderboard-empty: "&eNo one has found any gifts yet!"
+  leaderboard-entry: "&e#{position} &7- &a{player} &7- &e{found} gifts"
+  
+  # Command usage messages
+  remove-usage: "&cUsage: /christmasgift remove <x> <y> <z>"
+  invalid-coordinates: "&cInvalid coordinates! Please use numbers."

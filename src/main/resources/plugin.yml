@@ -1,0 +1,24 @@
+name: ChristmasGift
+version: '1.0.0'
+main: com.franchino961.christmasgift.ChristmasGift
+api-version: '1.20'
+author: Franchino961
+description: Christmas gift hunt plugin for Minecraft
+softdepend: [PlaceholderAPI]
+
+commands:
+  christmasgift:
+    description: Main command for ChristmasGift
+    aliases: [cg, gift]
+    usage: /<command> [give|stats|leaderboard|remove|removeall|reload]
+    permission: christmasgift.use
+
+permissions:
+  christmasgift.use:
+    description: Allows using basic commands
+    default: true
+  christmasgift.admin:
+    description: Allows using admin commands
+    default: op
+    children:
+      christmasgift.use: true

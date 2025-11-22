@@ -1,0 +1,7 @@
+com\franchino961\christmasgift\data\DataManager.class
+com\franchino961\christmasgift\listeners\BlockInteractListener.class
+com\franchino961\christmasgift\commands\ChristmasGiftCommand.class
+com\franchino961\christmasgift\ChristmasGift.class
+com\franchino961\christmasgift\config\MessagesManager.class
+com\franchino961\christmasgift\data\GiftBlock.class
+com\franchino961\christmasgift\config\ConfigManager.class

@@ -1,0 +1,62 @@
+compilazione
+    - maven
+    - java 17
+
+funzionamento
+    nel file config si deve configurare un blocco
+    supporto per il plugin head data base
+    ci deve essere un comando che givva il blocco configurato
+    
+    una volta piazzato il blocco configurato puo essere riscosso sola una volta da un solo player
+    una volta risposso o scompare o viene sostituito con un blocco diverso anchesso impostato nel config 
+    ci deve essere un comando che ti dice la lista dei player con quanti "blocchi" trovati, solo chi ha admin perm puo farlo
+    un comando che se fatto ti dice solo chi ha fatto il comando quante ne ha trovate
+    in piu se fattibile mi servirebbero anche i placeholder che restuiscono la posizione in classifica o quanti ne ha uno ad esempio
+    la posizione e lo stato (preso o no) deve essere salvato in un file
+
+
+
+Configurazione e Funzionalità
+Tipo di blocco configurabile: Nel config, vuoi specificare solo il tipo di blocco (es. DIAMOND_BLOCK) o anche head/skull personalizzate con texture specifiche?
+anche head/skull custom
+
+Blocco sostitutivo: Quando un regalo viene riscosso, preferisci che:
+Scompaia completamente (AIR)?
+Venga sostituito con un blocco specifico (quale?)
+Entrambe le opzioni configurabili?
+nel file si configura se il blocco deve rimanere o se deve essere sostituito 
+se viene messo che deve essere sostituito si configura sempre nel file config
+con quale blocco si deve sostituire, che puo essere air o head o altro
+
+Ricompense: Cosa riceve il player quando trova e riscuote il blocco? (item, comandi da eseguire, economia, ecc.)
+nessun reward
+
+Piazzamento blocchi:
+Quanti blocchi regalo devono poter essere piazzati contemporaneamente?
+quando si fa il comando give viene dato all'admin il blocco configurato nel config
+e poi lo si piazza
+
+Chi può piazzarli? (Solo admin o tramite comando?)
+Permessi: Quali permessi vuoi implementare? (es. christmasgift.admin, christmasgift.find, ecc.)
+solo chi ha il permesso admin
+
+Comandi: Confermi questi comandi?
+/christmasgift give - piazza il blocco configurato (solo admin)
+/christmasgift leaderboard - mostra classifica (solo admin)
+/christmasgift stats - mostra proprie statistiche (tutti)
+/christmasgift remove "coordinate" (solo admin)
+/christmasgift removeall (solo admin)
+
+
+PlaceholderAPI: Quali placeholder specifici ti servono? (es. %christmasgift_found%, %christmasgift_rank%, altri?)
+esempio:
+%christmasgift_found% che ti dice quante ne hai trovate
+%christmasgift_<position>_name% Mostra il name del giocatore al <position> posto nella classifica
+%christmasgift_<position>_displayname% Mostra il dispaly name del giocatore al <position> posto nella classifica
+%christmasgift_<position>_value% Mosta il numero di blocchi trovati in quella determinata <position>
+
+Messaggeria: Vuoi messaggi configurabili nel config o in un file separato (messages.yml)?
+si
+
+Versione Minecraft target: Per quale versione di Minecraft/Spigot stai sviluppando? (es. 1.20.x, 1.21.x)
+1.20
