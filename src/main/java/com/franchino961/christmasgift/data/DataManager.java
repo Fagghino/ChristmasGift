@@ -164,4 +164,14 @@ public class DataManager {
         }
         return -1;
     }
+
+    public void resetPlayerStats(UUID player) {
+        playerStats.remove(player);
+        saveData();
+    }
+
+    public void resetAllPlayerStats() {
+        playerStats.clear();
+        saveData();
+    }
 }
