@@ -10,7 +10,7 @@ commands:
   christmasgift:
     description: Main command for ChristmasGift
     aliases: [cg, gift]
-    usage: /<command> [give|stats|leaderboard|remove|removeall|reload]
+    usage: /<command> [give|stats|leaderboard|remove|removeall|reset|resetall|reload]
     permission: christmasgift.use
 
 permissions:
