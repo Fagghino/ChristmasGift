@@ -3,7 +3,6 @@ package com.franchino961.christmasgift.listeners;
 import com.franchino961.christmasgift.ChristmasGift;
 import com.franchino961.christmasgift.data.GiftBlock;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -49,24 +48,24 @@ public class BlockInteractListener implements Listener {
         
         // Check if the broken block is a registered gift block
         if (plugin.getDataManager().isGiftBlock(location)) {
+            // Remove the gift block from the system when broken
+            plugin.getDataManager().removeGiftBlock(location);
+            
             Player player = event.getPlayer();
-            
-            // Admins can break gift blocks
             if (player.hasPermission("christmasgift.admin")) {
-                plugin.getDataManager().removeGiftBlock(location);
                 player.sendMessage(plugin.getMessagesManager().getMessage("messages.gift-removed"));
-                return;
             }
-            
-            // Regular players cannot break gift blocks
-            event.setCancelled(true);
-            player.sendMessage(plugin.getMessagesManager().getMessage("messages.cannot-break"));
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerInteract(PlayerInteractEvent event) {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
+            return;
+        }
+
+        // Only handle main hand to avoid duplicate events
+        if (event.getHand() != org.bukkit.inventory.EquipmentSlot.HAND) {
             return;
         }
 
@@ -85,6 +84,11 @@ public class BlockInteractListener implements Listener {
         Player player = event.getPlayer();
         GiftBlock giftBlock = plugin.getDataManager().getGiftBlock(location);
 
+        // Check if gift block exists and if it's already claimed
+        if (giftBlock == null) {
+            return;
+        }
+
         if (giftBlock.isClaimed()) {
             player.sendMessage(plugin.getMessagesManager().getMessage("messages.already-claimed"));
             return;
@@ -101,19 +105,7 @@ public class BlockInteractListener implements Listener {
 
         // Handle block replacement
         if (plugin.getConfigManager().shouldReplaceBlock()) {
-            String replacementType = plugin.getConfigManager().getReplacementBlockType();
-            
-            if (replacementType.equalsIgnoreCase("AIR")) {
-                block.setType(Material.AIR);
-            } else {
-                try {
-                    Material material = Material.valueOf(replacementType.toUpperCase());
-                    block.setType(material);
-                } catch (IllegalArgumentException e) {
-                    plugin.getLogger().warning("Invalid replacement material: " + replacementType);
-                    block.setType(Material.AIR);
-                }
-            }
+            plugin.getConfigManager().applyReplacementTexture(block);
         }
     }
 
