@@ -34,3 +34,7 @@ messages:
   # Command usage messages
   remove-usage: "&cUsage: /christmasgift remove <x> <y> <z>"
   invalid-coordinates: "&cInvalid coordinates! Please use numbers."
+  reset-usage: "&cUsage: /christmasgift reset <player>"
+  player-not-found: "&cPlayer '{player}' not found!"
+  player-reset: "&aReset stats for player &e{player}&a. Previous gifts found: &e{count}"
+  all-stats-reset: "&aReset stats for all players! Total players affected: &e{count}"
