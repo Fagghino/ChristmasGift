@@ -6,7 +6,7 @@ import com.franchino961.christmasgift.config.MessagesManager;
 import com.franchino961.christmasgift.data.DataManager;
 import com.franchino961.christmasgift.listeners.BlockInteractListener;
 // import com.franchino961.christmasgift.listeners.HeadDatabaseListener;
-// import com.franchino961.christmasgift.placeholders.ChristmasGiftExpansion;
+import com.franchino961.christmasgift.placeholders.ChristmasGiftExpansion;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ChristmasGift extends JavaPlugin {
@@ -39,13 +39,10 @@ public class ChristmasGift extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BlockInteractListener(this), this);
 
         // Register PlaceholderAPI expansion if available
-        // TODO: Uncomment when PlaceholderAPI dependency is added
-        /*
         if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new ChristmasGiftExpansion(this).register();
             getLogger().info("PlaceholderAPI hooked successfully!");
         }
-        */
 
         getLogger().info("ChristmasGift plugin enabled successfully!");
     }
