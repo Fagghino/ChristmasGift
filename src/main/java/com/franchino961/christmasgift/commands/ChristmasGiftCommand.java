@@ -44,6 +44,10 @@ public class ChristmasGiftCommand implements CommandExecutor, TabCompleter {
                 return handleRemove(sender, args);
             case "removeall":
                 return handleRemoveAll(sender);
+            case "reset":
+                return handleReset(sender, args);
+            case "resetall":
+                return handleResetAll(sender);
             case "reload":
                 return handleReload(sender);
             default:
@@ -61,6 +65,8 @@ public class ChristmasGiftCommand implements CommandExecutor, TabCompleter {
             sender.sendMessage("§e/christmasgift leaderboard §7- View leaderboard");
             sender.sendMessage("§e/christmasgift remove <x> <y> <z> §7- Remove gift block");
             sender.sendMessage("§e/christmasgift removeall §7- Remove all gift blocks");
+            sender.sendMessage("§e/christmasgift reset <player> §7- Reset player stats");
+            sender.sendMessage("§e/christmasgift resetall §7- Reset all player stats");
             sender.sendMessage("§e/christmasgift reload §7- Reload configuration");
         }
     }
@@ -193,6 +199,51 @@ public class ChristmasGiftCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
+    private boolean handleReset(CommandSender sender, String[] args) {
+        if (!sender.hasPermission("christmasgift.admin")) {
+            sender.sendMessage(plugin.getMessagesManager().getMessage("messages.no-permission"));
+            return true;
+        }
+
+        if (args.length < 2) {
+            sender.sendMessage(plugin.getMessagesManager().getMessage("messages.reset-usage"));
+            return true;
+        }
+
+        String playerName = args[1];
+        OfflinePlayer target = Bukkit.getOfflinePlayer(playerName);
+        
+        if (!target.hasPlayedBefore() && !target.isOnline()) {
+            sender.sendMessage(plugin.getMessagesManager().getMessage("messages.player-not-found",
+                "{player}", playerName));
+            return true;
+        }
+
+        int previousStats = plugin.getDataManager().getPlayerStats(target.getUniqueId());
+        plugin.getDataManager().resetPlayerStats(target.getUniqueId());
+        
+        sender.sendMessage(plugin.getMessagesManager().getMessage("messages.player-reset",
+            "{player}", target.getName(),
+            "{count}", String.valueOf(previousStats)));
+        
+        return true;
+    }
+
+    private boolean handleResetAll(CommandSender sender) {
+        if (!sender.hasPermission("christmasgift.admin")) {
+            sender.sendMessage(plugin.getMessagesManager().getMessage("messages.no-permission"));
+            return true;
+        }
+
+        int totalPlayers = plugin.getDataManager().getPlayerStats().size();
+        plugin.getDataManager().resetAllPlayerStats();
+        
+        sender.sendMessage(plugin.getMessagesManager().getMessage("messages.all-stats-reset",
+            "{count}", String.valueOf(totalPlayers)));
+        
+        return true;
+    }
+
     private boolean handleReload(CommandSender sender) {
         if (!sender.hasPermission("christmasgift.admin")) {
             sender.sendMessage(plugin.getMessagesManager().getMessage("messages.no-permission"));
@@ -220,6 +271,8 @@ public class ChristmasGiftCommand implements CommandExecutor, TabCompleter {
                 subCommands.add("leaderboard");
                 subCommands.add("remove");
                 subCommands.add("removeall");
+                subCommands.add("reset");
+                subCommands.add("resetall");
                 subCommands.add("reload");
             }
             
@@ -241,6 +294,13 @@ public class ChristmasGiftCommand implements CommandExecutor, TabCompleter {
                     return Collections.singletonList(String.valueOf(loc.getBlockZ()));
                 }
             }
+        }
+
+        if (args.length == 2 && args[0].equalsIgnoreCase("reset") && sender.hasPermission("christmasgift.admin")) {
+            return Bukkit.getOnlinePlayers().stream()
+                .map(Player::getName)
+                .filter(name -> name.toLowerCase().startsWith(args[1].toLowerCase()))
+                .collect(Collectors.toList());
         }
 
         return completions;
