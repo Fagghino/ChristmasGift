@@ -174,4 +174,18 @@ public class DataManager {
         playerStats.clear();
         saveData();
     }
+
+    public int getTotalGifts() {
+        return giftBlocks.size();
+    }
+
+    public int getClaimedGifts() {
+        return (int) giftBlocks.values().stream()
+                .filter(GiftBlock::isClaimed)
+                .count();
+    }
+
+    public int getUnclaimedGifts() {
+        return getTotalGifts() - getClaimedGifts();
+    }
 }
