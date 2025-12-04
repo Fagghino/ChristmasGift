@@ -94,6 +94,12 @@ public class BlockInteractListener implements Listener {
             return;
         }
 
+        // Check if player has permission to claim gifts
+        if (!player.hasPermission("christmasgift.claim")) {
+            player.sendMessage(plugin.getMessagesManager().getMessage("messages.no-permission"));
+            return;
+        }
+
         // Claim the gift
         plugin.getDataManager().claimGiftBlock(location, player.getUniqueId());
         
